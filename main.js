@@ -257,6 +257,28 @@ function toggleScioScribeVideoPlayback() {
   }
 }
 
+// SilentSort video play/pause functionality
+function toggleSilentSortVideoPlayback() {
+  const video = document.getElementById('silentsort-video');
+  const playIcon = document.getElementById('silentsort-play-icon');
+  const pauseIcon = document.getElementById('silentsort-pause-icon');
+  const button = document.querySelector('#silentsort-video').parentElement.querySelector('.media-toggle-btn');
+  
+  if (video.paused) {
+    // Play the video
+    video.play();
+    playIcon.style.display = 'none';
+    pauseIcon.style.display = 'block';
+    button.setAttribute('aria-label', 'Pause SilentSort demo');
+  } else {
+    // Pause the video
+    video.pause();
+    playIcon.style.display = 'block';
+    pauseIcon.style.display = 'none';
+    button.setAttribute('aria-label', 'Play SilentSort demo');
+  }
+}
+
 // Auto-update play/pause icon and add click-to-play functionality
 document.addEventListener('DOMContentLoaded', function() {
   // Elemental Echo video setup
@@ -326,6 +348,41 @@ document.addEventListener('DOMContentLoaded', function() {
       scioScribePlayIcon.style.display = 'none';
       scioScribePauseIcon.style.display = 'block';
       scioScribeButton.setAttribute('aria-label', 'Pause ScioScribe demo');
+    });
+  }
+
+  // SilentSort video setup
+  const silentSortVideo = document.getElementById('silentsort-video');
+  const silentSortPlayIcon = document.getElementById('silentsort-play-icon');
+  const silentSortPauseIcon = document.getElementById('silentsort-pause-icon');
+  const silentSortButton = silentSortVideo ? silentSortVideo.parentElement.querySelector('.media-toggle-btn') : null;
+  
+  if (silentSortVideo && silentSortPlayIcon && silentSortPauseIcon && silentSortButton) {
+    // Allow clicking on video to play/pause
+    silentSortVideo.addEventListener('click', function(e) {
+      e.preventDefault();
+      toggleSilentSortVideoPlayback();
+    });
+    
+    silentSortVideo.addEventListener('ended', function() {
+      silentSortPlayIcon.style.display = 'block';
+      silentSortPauseIcon.style.display = 'none';
+      silentSortButton.setAttribute('aria-label', 'Play SilentSort demo');
+    });
+    
+    // Also handle when video is paused by other means
+    silentSortVideo.addEventListener('pause', function() {
+      if (!silentSortVideo.ended) {
+        silentSortPlayIcon.style.display = 'block';
+        silentSortPauseIcon.style.display = 'none';
+        silentSortButton.setAttribute('aria-label', 'Play SilentSort demo');
+      }
+    });
+    
+    silentSortVideo.addEventListener('play', function() {
+      silentSortPlayIcon.style.display = 'none';
+      silentSortPauseIcon.style.display = 'block';
+      silentSortButton.setAttribute('aria-label', 'Pause SilentSort demo');
     });
   }
 });

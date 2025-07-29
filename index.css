@@ -1656,15 +1656,27 @@ noscript {
 
 /* Video element styling */
 #elemental-video,
-#scioscribe-video {
+#scioscribe-video,
+#silentsort-video {
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 #elemental-video:hover,
-#scioscribe-video:hover {
+#scioscribe-video:hover,
+#silentsort-video:hover {
   transform: scale(1.02);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Ensure poster image displays properly for SilentSort */
+#silentsort-video {
+  object-fit: cover;
+  object-position: center;
+  background-image: url('./src/webp/silent-sort-image.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .ProjectHeading {
@@ -2001,10 +2013,13 @@ footer {
 }
 
 .footer-avatar-img {
-  width: fit-content;
+  width: auto;
+  max-width: 200px;
   z-index: 2;
   /* opacity: .2; */
-  height: 330px;
+  height: 280px;
+  object-fit: contain;
+  object-position: center bottom;
   -webkit-filter: drop-shadow(5px 5px 5px #fff);
   filter: drop-shadow(5px 5px 5px #222);
 }
@@ -2450,7 +2465,8 @@ footer {
   }
 
   .footer-avatar-img {
-    height: 380px;
+    height: 320px;
+    max-width: 220px;
   }
 }
 
@@ -2583,7 +2599,8 @@ footer {
   }
 
   .footer-avatar-img {
-    height: 330px;
+    height: 250px;
+    max-width: 180px;
   }
 }
 
